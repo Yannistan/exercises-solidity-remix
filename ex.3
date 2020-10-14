@@ -1,0 +1,8 @@
+ View vs Pure
+
+ Lorsqu' une fonction est declarée comme View, elle peut pas modifier l'etat de storage.
+
+ Pure est encore moins permissive parce que dans ce cas-là, la fonction peut même pas voir l'etat de stockage. La valuer de sortie sera determinée que
+ depuis les valuers d'entrée et aucune variable global ne sera utilisée.
+
+ Afin d'executer ce genre de fonctions depuis le dehors on n'a pas besoin de effectuer une  transaction.Par consequant, gas/ether n'est pas requis pour appeler ces fonctions depuis le dehors. Cependent, il est possible de consommer du gas si on appelle  ces fonctions depuis une trabsaction. 

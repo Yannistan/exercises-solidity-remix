@@ -1,0 +1,64 @@
+
+// SPDX-License-Identifier: MIT                 // SPDX Licence Identifier
+pragma solidity ^0.6.0;                         // Version pragma
+pragma experimental ABIEncoderV2;               // Experimental pragma
+contract Logger {                               // Declaration du contract
+    address[] private  logs;
+    function log() internal {
+        logs.push(msg.sender);
+    }
+    function getLast() internal view returns(address) {
+        return logs[logs.length - 1];
+    }
+
+    function getVisitorByPosition(uint _pos) internal view returns(address) {
+        return logs[_pos - 1];
+    }
+
+    function getAll() internal view returns(address[] memory) {
+        return logs;
+    }
+}
+
+
+// SPDX-License-Identifier: MIT                 // SPDX Licence Identifier
+pragma solidity ^0.6.0;                         // Version pragma
+pragma experimental ABIEncoderV2;               // Experimental pragma
+
+import './Logger.sol' as logger;                // import de ./Logger.sol
+
+contract SolidityCourse is logger.Logger {      // Declaration du contract
+    address private owner;
+
+    constructor() public {
+        owner = msg.sender;
+    }
+
+    function whoIsOwner() public returns(address) {
+        log();
+        return owner;
+    }
+
+    function getLastVisitor() public returns(address) {
+        address lastVisitor = getLast();
+        log();
+        return lastVisitor;
+    }
+
+    function getNthVisitor(uint _pos) public returns(address) {
+        address nthVisitor = getVisitorByPosition(_pos);
+        log();
+        return nthVisitor;
+    }
+
+    function getAllVisitors() public view returns(address[] memory) {
+        require(owner == msg.sender, 'Only owner can use this function.');
+
+        return getAll();
+    }
+}
+
+Vu que Logger.sol est appellé par SolidityCourse c'était d'abord celui qui a été executé.Le Contract dans Logger contient un array logs auquel l'address de l'utilisateur(la personne qui a deployé le contat) courant est stocké. La fonction getLast retourne l'address du dernier utilisateur à partir de l'element logs[logs.length-1]. Cette fonction ne va pas modifier l'état du contrat, c'est-à-dire elle va ni modifier des variables ni envoyer des evenements.La fonction getVisitor ByPosition permet de récuperer l'address d'un utilisateur à partir de son emplacement dans l'array logs.Cse fait depuis la le parametre _pos. La fonction permet de recuperer l'array logs.
+Une fois que SolidityCourse.sol est execute, la fonction whoIsOwner retourne l'address msg.sender, c'est la personne qui est en train d'executer le contrat.En suit
+e, la fonction getLastVisitor appele la fonction getLast decrite au dessus qui permet de récuperer l'address du dernier utilisateur à partir de l'element logs[logs.length-1].
+nt dans l'array logs.En suite, la fonction getNthVisitor appele la fonction getVisitorByPosition decrite au dessus qui permet de récuperer l'address d'un utilisateur à partir de son emplacement dans l'array logs.Enfin, la fonction getAllVisitors ne peut être executer que par le owner (l'utilisateur courant), permet de récuper l'array logs en appelant la fonction getAll du Logger.

@@ -1,0 +1,58 @@
+ // SPDX-License-Identifier: MIT                 // SPDX Licence Identifier
+pragma solidity 0.7.0;                         // Version pragma
+pragma experimental ABIEncoderV2;               // Experimental pragma
+
+/// @title A simple calculator
+/// @author Ioannis Tanis
+/// @notice You can use this contract for only to make basic calculations
+/// @dev The program functions can only be executed by the owner of the account used for the compilation
+contract Calc {   
+    address private owner;
+    
+    constructor() public{    
+        owner = 0x44F31c324702C418d3486174d2A200Df1b345376;
+    } 
+  /// @notice Provides the owner 
+  /// @return address of teh owner(in this specific case it's the author's address, put it on purpose in order to check if require works
+  function getOwner() public view returns (address) {     
+        return owner; 
+    } 
+/// @notice Calculates the sum of two unsigned integers
+/// @dev added a require in order to prevent an address different from the one that deplyed the contract from calling the function
+/// @param two unsigned integers n1 and n2
+/// @return The sum of the two integers as unsigned integer  
+function add(uint n1,uint n2) public view returns(uint) {
+    require(owner == msg.sender, 'Only owner can execute this function.');
+    return n1 + n2;
+}
+/// @notice Calculates the subtraction of two unsigned integers
+/// @dev added a require in order to prevent an address different from the one that deplyed the contract from calling the function
+/// @param two unsigned integers n1 and n2
+/// @return The subtraction of the two integers as unsigned integer
+function sub(uint n1, uint n2) public view returns(uint) {
+   
+    require(owner == msg.sender, 'Only owner can execute this function.');
+    return n1 - n2;
+}
+
+/// @notice Calculates the multiplication of two unsigned integers
+/// @dev added a require in order to prevent an address different from the one that deplyed the contract from calling the function
+/// @param two unsigned integers n1 and n2
+/// @return The sum of the two integers as unsigned integer
+function mul(uint n1,uint n2) public view returns(uint) {
+    require(owner == msg.sender, 'Only owner can execute this function.');
+    return n1 * n2;
+}
+
+/// @notice Calculates the quotient and the remainder of two unsigned integers
+/// @dev added a require in order to prevent an address different from teh one that deplyed the contract from calling the function
+/// @param two unsigned integers n1 and n2
+/// @return The quotient and the remainder of the division between two integers as unsigned integers
+function div(uint numerator, uint denominator) public view returns(uint quotient, uint remainder) {
+    require(owner == msg.sender, 'Only owner can execute this function.');
+        quotient  = numerator / denominator;
+        remainder = numerator - denominator * quotient;
+    }
+}
+
+

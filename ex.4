@@ -1,0 +1,39 @@
+// SPDX-License-Identifier: MIT                 // SPDX Licence Identifier
+pragma solidity 0.7.0;                         // Version pragma
+pragma experimental ABIEncoderV2;               // Experimental pragma
+contract Calc {   
+    address private owner;
+    
+    constructor() public{    
+        owner = 0x44F31c324702C418d3486174d2A200Df1b345376;
+    } 
+    
+  function getOwner() public view returns (address) {     
+        return owner; 
+    } 
+  
+function add(uint n1,uint n2) public view returns(uint) {
+    require(owner == msg.sender, 'Only owner can execute this function.');
+    return n1 + n2;
+}
+
+function sub(uint n1, uint n2) public view returns(uint) {
+   
+    require(owner == msg.sender, 'Only owner can execute this function.');
+    return n1 - n2;
+}
+
+function mul(uint n1,uint n2) public view returns(uint) {
+    require(owner == msg.sender, 'Only owner can execute this function.');
+    return n1 * n2;
+}
+function div(uint numerator, uint denominator) public view returns(uint quotient, uint remainder) {
+    require(owner == msg.sender, 'Only owner can execute this function.');
+        quotient  = numerator / denominator;
+        remainder = numerator - denominator * quotient;
+    }
+}
+
+
+Output :call to Calc.mul errored: VM error: revert. revert The transaction has been reverted to the initial state. Reason provided by the contract: "Only owner can execute this function.". Debug the transaction to get more information. 
+

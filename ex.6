@@ -1,0 +1,31 @@
+ // SPDX-License-Identifier: MIT                 // SPDX Licence Identifier
+pragma solidity 0.7.0;                         // Version pragma
+pragma experimental ABIEncoderV2;               // Experimental pragma
+contract MaxInfo {   
+    address private owner;
+    
+    constructor() public{    
+        owner = msg.sender;
+    } 
+
+function getOwner() public view returns (address) {     
+        return owner; 
+    } 
+
+function getBalance() public view returns(uint256){ 
+        return owner.balance; 
+    } 
+
+ function getBlockNumber() public view returns(uint){ 
+        return block.number; 
+    } 
+    
+ function getBlockTimestamp() public view returns(uint){ 
+        return block.timestamp; 
+    }
+    
+ function getBlockCoinBase() public view returns(address payable){ 
+        return block.coinbase; 
+    }
+
+
